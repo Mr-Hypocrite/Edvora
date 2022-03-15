@@ -1,0 +1,30 @@
+.NavContainer {
+    background-color: #101010;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.Flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 98%;
+}
+
+.UserProfile {
+    border-radius: 100%;
+}
+
+.Inner {
+    flex-direction: row;
+    width: fit-content !important;
+    margin: 0;
+    gap: 1rem;
+}
+
+@media only screen and (min-width: 425px) {
+    .Flex {
+        width: 95%;
+    }
+}

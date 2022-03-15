@@ -1,0 +1,63 @@
+.RidesContainer {
+    color: white;
+    margin: 1rem auto;
+    max-width: 98%;
+}
+
+.OutterFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.Flex {
+    width: fit-content;
+    gap: 2rem;
+}
+
+.Filter {
+    padding-left: 0.5rem;
+}
+
+.FilterBtn {
+    border-radius: 4px;
+    gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+}
+
+.FilterBtn:hover {
+    background-color: #0000008F;
+}
+
+.RideMenuOpt {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-bottom: 2px solid transparent;
+}
+
+.RideMenuOpt:hover {
+    border-bottom: 2px solid white;
+}
+
+.ActiveRF {
+    border-bottom: 2px solid white !important;
+}
+
+.FilterDiv {
+    background-color: #131313;
+    top: 50px;
+    right: 0;
+    display: none;
+    gap: 2rem;
+    flex-direction: column;
+    z-index: 100;
+    position: absolute;
+}
+
+@media only screen and (min-width: 425px) {
+    .RidesContainer {
+        max-width: 95%;
+    }
+}

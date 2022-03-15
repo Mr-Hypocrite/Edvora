@@ -1,0 +1,38 @@
+.Card {
+    background-color: #171717;
+    display: grid;
+    grid-template-columns: fit-content(100%) 3fr;
+    column-gap: 3rem;
+    margin: 1rem 0;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    position: relative;
+}
+
+.CardImage {
+    border-radius: 4px;
+}
+
+.Flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.LocTag {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    right: 2rem;
+    top: 1.3rem;
+}
+
+.Tag {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    background: #0000008F;
+    border-radius: 10px;
+}
