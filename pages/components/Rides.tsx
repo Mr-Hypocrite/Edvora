@@ -22,8 +22,8 @@ function Rides() {
   let [loc, setLoc]:any = React.useState([{state: 'State',city:'City'}])
   let [rideFilter, setRideFilter] = React.useState('nrstRide')
   let [data, setData] = React.useState([])
-  let [state, setState] = React.useState('')
-  let [city, setCity] = React.useState('')
+  let [state, setRideState] = React.useState('State')
+  let [city, setRideCity] = React.useState('City')
 
   React.useEffect(() => {
 
@@ -42,30 +42,26 @@ function Rides() {
 
     resetStateCity()
 
-    console.log(loc);
+    setRideState('State')
+    setRideCity('City')
     
     
   }, [rideFilter, userData])
 
-  // Reset Values of City and State Variables as well as Selectors
+  // Reset Values of City and State Selectors
   const resetStateCity = () => {
-    setState('')
-    setCity('')
-    document.getElementById('state').value = '';
-    document.getElementById('city').value = '';
+    (document.getElementById('state') as HTMLInputElement).value = 'State';
+    (document.getElementById('city') as HTMLInputElement).value = 'City';
   }
 
   const handleStateSelector = (e:any) => {
-    setState(e.target.value)
+    setRideState(e.target.value)
     lFilter()
-    console.log(state);
-    
   }
 
   const handleCitySelector = (e:any) => {
-    setCity(e.target.value)
+    setRideCity(e.target.value)
     lFilter()
-    console.log(city);
   }
 
   
@@ -120,7 +116,7 @@ function Rides() {
                 <div id='Filters' className={`${styles.FilterDiv} ${styles.Hidden}`}>
 
                   <select onChange={handleStateSelector} name="state" id="state">
-                    <option value=''>State</option>
+                    <option value='State'>State</option>
                     {
                       // Unique Values of States
                       _.uniqBy(loc, 'state')
@@ -131,9 +127,9 @@ function Rides() {
                   </select>
 
                   <select onChange={handleCitySelector} name="city" id="city">
-                    <option value=''>City</option>
+                    <option value='City'>City</option>
                     {
-                      state === '' 
+                      state === 'State' 
                       ?
                       // Unique Values of Cities
                       _.uniqBy(loc, 'city')
@@ -160,28 +156,28 @@ function Rides() {
 
             {/* All States All Cities */}
             {
-               (!state && !city) && data.map((ride:any, index:number) => (
+               (state==='State' && city === 'City') && data.map((ride:any, index:number) => (
                   <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
             {/* Specific State Respective Cities */}
             {
-               (state && !city) && data.filter((ride:any) => ride.state === state).map((ride:any, index:number) => (
+               (state !== 'State' && city === 'City') && data.filter((ride:any) => ride.state === state).map((ride:any, index:number) => (
                 <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
             {/* Specific City */}
             {
-               (!state && city) && data.filter((ride:any) => ride.city === city).map((ride:any, index:number) => (
+               (state === 'State' && city !== 'City') && data.filter((ride:any) => ride.city === city).map((ride:any, index:number) => (
                 <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
             {/* Specific City and State */}
             {
-               (state && city) && data.filter((ride:any) => (ride.state === state && ride.city === city))
+               (state !=='State' && city !== 'City') && data.filter((ride:any) => (ride.state === state && ride.city === city))
                .map((ride:any, index:number) => (
                 <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
