@@ -3,6 +3,7 @@ import React from 'react'
 import RideCard from './RideCard'
 import styles from './Rides.module.css'
 import { RideData, UserData, rFilter } from './GlobalFunctions'
+let _ = require('lodash');
 
 function Rides() {
   // Variables
@@ -28,7 +29,7 @@ function Rides() {
 
     if(rideFilter === 'nrstRide') {
       setData(nearestRideData)
-      setLoc(nearestloc)
+      setLoc(nearestloc, 'state')
     } else if(rideFilter === 'upCmngRide') {
       setData(upComingRideData)
       setLoc(upComingloc)
@@ -121,7 +122,11 @@ function Rides() {
                   <select onChange={handleStateSelector} name="state" id="state">
                     <option value=''>State</option>
                     {
-                      loc.map((obj:any, index:number) => <option value={obj.state} key={index}>{obj.state}</option>)
+                      // Unique Values of States
+                      _.uniqBy(loc, 'state')
+                      // Sorting in Alphabetical Order
+                      .sort((prev:any,curr:any) => (prev.state > curr.state) ? 1 : ((curr.state > prev.state) ? -1 : 0))
+                      .map((obj:any, index:number) => <option value={obj.state} key={index}>{obj.state}</option>)
                     }
                   </select>
 
@@ -130,9 +135,18 @@ function Rides() {
                     {
                       state === '' 
                       ?
-                      loc.map((obj:any, index:number) => <option value={obj.city} key={index}>{obj.city}</option>)
+                      // Unique Values of Cities
+                      _.uniqBy(loc, 'city')
+                      // Sorting in Alphabetical Order
+                      .sort((prev:any,curr:any) => (prev.city > curr.city) ? 1 : ((curr.city > prev.city) ? -1 : 0))
+                      .map((obj:any, index:number) => <option value={obj.city} key={index}>{obj.city}</option>)
                       :
-                      loc.filter((obj:any) => obj.state === state || obj.state === 'State')
+                      // Unique Values of Cities
+                      _.uniqBy(loc, 'city')
+                      // Sorting in Alphabetical Order
+                      .sort((prev:any,curr:any) => (prev.city > curr.city) ? 1 : ((curr.city > prev.city) ? -1 : 0))
+                      // Filtering Cities Based on State
+                      .filter((obj:any) => obj.state === state || obj.state === 'State')
                       .map((obj:any, index:number) => <option value={obj.city} key={index}>{obj.city}</option>)
                     }
                   </select>
@@ -142,25 +156,30 @@ function Rides() {
         </div>
   
         <div>
-  
+            {/* Conditonal Filtering */}
+
+            {/* All States All Cities */}
             {
                (!state && !city) && data.map((ride:any, index:number) => (
                   <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
+            {/* Specific State Respective Cities */}
             {
                (state && !city) && data.filter((ride:any) => ride.state === state).map((ride:any, index:number) => (
                 <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
+            {/* Specific City */}
             {
                (!state && city) && data.filter((ride:any) => ride.city === city).map((ride:any, index:number) => (
                 <RideCard ride={ride} key={index} station_code={userData.station_code}/>
                ))
             }
 
+            {/* Specific City and State */}
             {
                (state && city) && data.filter((ride:any) => (ride.state === state && ride.city === city))
                .map((ride:any, index:number) => (
