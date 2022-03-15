@@ -49,11 +49,20 @@
     background-color: #131313;
     top: 50px;
     right: 0;
-    display: none;
+    display: flex;
     gap: 2rem;
     flex-direction: column;
-    z-index: 100;
+    padding: 1rem;
     position: absolute;
+    z-index: 100;
+}
+
+.Hidden {
+    visibility: hidden;
+}
+
+.StateSelector {
+    width: fit-content;
 }
 
 @media only screen and (min-width: 425px) {

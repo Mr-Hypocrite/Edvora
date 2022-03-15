@@ -8,7 +8,8 @@ function RideData(userData:any) {
   let loc:[{
     state:string,
     city:string,
-  }] = [{state: 'All', city: 'All'}]
+    date:string,
+  }] = [{state: 'State', city: 'City', date: 'Date'}]
 
   let [ res ] = useFetch(url)
 
@@ -19,20 +20,34 @@ function RideData(userData:any) {
     }))
     
     // Adding States and Cities to the Location Array of Objects
-    loc.push({'state':ride.state, 'city':ride.city})
+    loc.push({'state':ride.state, 'city':ride.city, date: ride.date})
 
     //   Adding Distance in Each Object in the Array
     return ({...ride, distance: Math.abs(closest - userData.station_code)})
   }).sort(compare)
 
+  // NearestRides Array of Objects
   let nearestRideData = data.filter((ride) => toTimestamp(ride.date) >= toTimestamp(Date()))
+  
+  // UpCommingRides Array of Objects
   let upComingRideData = data.filter((ride) => toTimestamp(ride.date) > toTimestamp(Date()))
+  
+  // PastRides Array of Objects
   let pastRideData = data.filter((ride) => toTimestamp(ride.date) < toTimestamp(Date()))
+
+  // Locations based on Ride Filter
+  let nearestloc = loc.filter((obj:any) => toTimestamp(obj.date) >= toTimestamp(Date()))
+  let upComingloc = loc.filter((obj:any) => toTimestamp(obj.date) > toTimestamp(Date()))
+  let pastloc = loc.filter((obj:any) => toTimestamp(obj.date) < toTimestamp(Date()))
+  
+
   return {
     nearestRideData: nearestRideData,
     upComingRideData: upComingRideData,
     pastRideData: pastRideData,
-    locations: loc
+    nearestloc: nearestloc,
+    upComingloc: upComingloc,
+    pastloc: pastloc,
   }
 }
 
@@ -58,6 +73,7 @@ function compare( a:any, b:any ) {
   }
 }
 
+// Ride Filter switch active filter
 function rFilter (setRideFilter:any, type:string, styles:any) {
 
   if(type === 'nrstRide') {
