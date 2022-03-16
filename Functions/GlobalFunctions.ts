@@ -1,5 +1,4 @@
-import React from 'react'
-import useFetch from '../hooks/useFetch'
+import useFetch from '../pages/hooks/useFetch'
 
 // let userData:any = UserData();
 
@@ -95,4 +94,4 @@ function rFilter (setRideFilter:any, type:string, styles:any) {
   
 }
 
-export {UserData, RideData, toTimestamp, compare, rFilter}
+export {UserData, RideData, rFilter}

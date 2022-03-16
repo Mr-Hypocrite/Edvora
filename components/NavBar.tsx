@@ -1,11 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
-import useFetch from '../hooks/useFetch'
 import styles from './/NavBar.module.css'
-import { UserData } from './GlobalFunctions'
 
 function NavBar(props:any) {
-  let userData:any = UserData()
 
   return (
     <div className={styles.NavContainer}>

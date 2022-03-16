@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import RideCard from './RideCard'
 import styles from './Rides.module.css'
-import { rFilter } from './GlobalFunctions'
+import { rFilter } from '../Functions/GlobalFunctions'
 let _ = require('lodash');
 
 function Rides(props:any) {

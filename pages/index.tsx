@@ -1,10 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import styles from '../styles/Home.module.css'
-import { RideData, UserData } from './components/GlobalFunctions'
-import NavBar from './components/NavBar'
-import Rides from './components/Rides'
+import { RideData, UserData } from '../Functions/GlobalFunctions'
+import NavBar from '../components/NavBar'
+import Rides from '../components/Rides'
 
 const Home: NextPage = () => {
 
@@ -31,10 +30,10 @@ const Home: NextPage = () => {
       </Head>
 
       {/* NavBar */}
-      <NavBar userData = {userData}/>
+      {userData && <NavBar userData = {userData}/>}
 
       {/* Rides */}
-      <Rides data = {data}/>
+      {data && <Rides data = {data}/>}
 
     </div>
   )
