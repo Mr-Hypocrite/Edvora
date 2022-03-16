@@ -25,8 +25,8 @@ function Rides() {
   let [state, setRideState] = React.useState('State')
   let [city, setRideCity] = React.useState('City')
 
-  React.useEffect(() => {
-
+  // Change Data based on Type of Ride
+  const rideType = () => {
     if(rideFilter === 'nrstRide') {
       setData(nearestRideData)
       setLoc(nearestloc, 'state')
@@ -39,20 +39,16 @@ function Rides() {
     } else {
       setData([])
     }
-
-    resetStateCity()
-
-    setRideState('State')
-    setRideCity('City')
-    
-    
-  }, [rideFilter, userData])
+  }
 
   // Reset Values of City and State Selectors
   const resetStateCity = () => {
     (document.getElementById('state') as HTMLInputElement).value = 'State';
     (document.getElementById('city') as HTMLInputElement).value = 'City';
+    setRideState('State')
+    setRideCity('City')
   }
+
 
   const handleStateSelector = (e:any) => {
     setRideState(e.target.value)
@@ -70,13 +66,10 @@ function Rides() {
     document.getElementById('Filters')?.classList.toggle(`${styles.Hidden}`)
   }
 
-  // // To Hide filter if clicked outside
-  // document.onclick = function (e) {
-  //   if (e.target.id !== 'FilterBtn' && e.target.id !== 'Filters') {
-  //       if (e.target.offsetParent && e.target.offsetParent.id !== 'Filters')
-  //         document.getElementById('FilterBtn')?.classList.add(`${styles.Hidden}`)
-  //   }
-  // }
+  React.useEffect(() => {
+    rideType()
+    resetStateCity()
+  }, [rideType, userData])
 
   return (
     <div className={styles.RidesContainer}>
@@ -84,17 +77,20 @@ function Rides() {
         <div className={styles.OutterFlex}>
             <div className={`${styles.OutterFlex} ${styles.Flex}`}>
                 <h4 
-                  onClick={() => rFilter(setRideFilter, 'nrstRide', styles)} 
+                  onClick={() => {rFilter(setRideFilter, 'nrstRide', styles)
+                                  rideType()}} 
                   className={`${styles.RideMenuOpt} ${styles.ActiveRF} nrstRide`}>
                   Nearest rides ({ nearestRideData?.length })
                 </h4>
                 <h4 
-                  onClick={() => rFilter(setRideFilter, 'upCmngRide', styles)} 
+                  onClick={() => {rFilter(setRideFilter, 'upCmngRide', styles)
+                                  rideType()}} 
                   className={`${styles.RideMenuOpt} upCmngRide`}>
                   Upcoming rides ({ upComingRideData?.length })
                 </h4>
                 <h4 
-                  onClick={() => rFilter(setRideFilter, 'pstRide', styles)} 
+                  onClick={() => {rFilter(setRideFilter, 'pstRide', styles)
+                                  rideType()}} 
                   className={`${styles.RideMenuOpt} pstRide`}>
                   Past rides ({ pastRideData?.length })
                 </h4>
