@@ -84,7 +84,7 @@ function Rides(props:any) {
             <div>
                 <div onClick={() => lFilter()} className={`${styles.OutterFlex} ${styles.Flex} ${styles.FilterBtn}`}>
                   <Image
-                      src='/../public/images/filter_logo.png'
+                      src='https://github.com/Mr-Hypocrite/Edvora/blob/main/public/images/filter_logo.png?raw=true'
                       alt='filter-logo'
                       width={10}
                       height={10}
