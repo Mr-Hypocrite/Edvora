@@ -14,17 +14,22 @@ function Rides(props:any) {
   let [state, setRideState] = React.useState('State')
   let [city, setRideCity] = React.useState('City')
 
-  // Reset Values of City and State Selectors
-  const resetStateCity = () => {
-    (document.getElementById('state') as HTMLInputElement).value = 'State';
+  // Reset Values of State Var & Selectors
+    const resetState = () => {
+      (document.getElementById('state') as HTMLInputElement).value = 'State';
+      setRideState('State')
+    }
+
+  // Reset Values of City Var & Selectors
+  const resetCity = () => {
     (document.getElementById('city') as HTMLInputElement).value = 'City';
-    setRideState('State')
     setRideCity('City')
   }
 
   // State Selector Handler 
   const handleStateSelector = (e:any) => {
     setRideState(e.target.value)
+    resetCity()
     lFilter()
   }
 
@@ -55,7 +60,9 @@ function Rides(props:any) {
       } else {
         setData([])
       }
-    resetStateCity()
+
+    resetState()
+    resetCity()
   }, [props.data.nearestRideData, props.data.upComingRideData, props.data.pastRideData, 
     props.data.nearestloc, props.data.upComingloc, props.data.pastloc, rideFilter])
 
