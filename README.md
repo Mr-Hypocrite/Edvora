@@ -1,6 +1,6 @@
-# [Edvora Live Site](https://edvora-b6p8r58yv-mr-hypocrite.vercel.app/)
+# [Edvora Live Site](https://edvora-mnq5avpzm-mr-hypocrite.vercel.app/)
 
-<a href="https://edvora-b6p8r58yv-mr-hypocrite.vercel.app/"><img style="margin:auto; max-width:95%;" src="https://github.com/Mr-Hypocrite/Edvora/blob/main/public/images/thumbnail.PNG?raw=true" alt="thumbnail" /></a>
+<a href="https://edvora-mnq5avpzm-mr-hypocrite.vercel.app/"><img style="margin:auto; max-width:95%;" src="https://github.com/Mr-Hypocrite/Edvora/blob/main/public/images/thumbnail.PNG?raw=true" alt="thumbnail" /></a>
 
 <h3 align="center">Based on design provided by Edvora.</h3>
 
