@@ -4,7 +4,7 @@ import useFetch from '../hooks/useFetch'
 import styles from './/NavBar.module.css'
 import { UserData } from './GlobalFunctions'
 
-function NavBar() {
+function NavBar(props:any) {
   let userData:any = UserData()
 
   return (
@@ -12,11 +12,11 @@ function NavBar() {
         <div className={`${styles.Flex}`}>
             <h1>Edvora</h1>
             <div className={`${styles.Inner} ${styles.Flex}`}>
-                <h3>{userData.name}</h3>
+                <h3>{props.userData.name}</h3>
                 {
-                  userData.url && 
+                  props.userData.url && 
                   <Image
-                    src={userData.url} 
+                    src={props.userData.url} 
                     alt='User Profile'
                     width={30}
                     height={30}

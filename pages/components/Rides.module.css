@@ -65,6 +65,16 @@
     width: fit-content;
 }
 
+.LocSelector {
+    background-color: #232323;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    padding: 0.2rem;
+}
+
 @media only screen and (min-width: 425px) {
     .RidesContainer {
         max-width: 95%;

@@ -1,12 +1,26 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../styles/Home.module.css'
+import { RideData, UserData } from './components/GlobalFunctions'
 import NavBar from './components/NavBar'
 import Rides from './components/Rides'
-import useFetch from './hooks/useFetch'
 
 const Home: NextPage = () => {
+
+  // Variables
+  let userData:any = UserData()
+  let res:any = RideData(userData)
+  //Sorted and Filtered Ride Data
+  let data = {
+    nearestRideData: res.nearestRideData,
+    upComingRideData: res.upComingRideData,
+    pastRideData: res.pastRideData,
+  // Locations Filtered based on Ride Type
+    nearestloc: res.nearestloc,
+    upComingloc: res.upComingloc,
+    pastloc: res.pastloc,
+  }
 
   return (
     <div>
@@ -17,10 +31,10 @@ const Home: NextPage = () => {
       </Head>
 
       {/* NavBar */}
-      <NavBar />
+      <NavBar userData = {userData}/>
 
       {/* Rides */}
-      <Rides />
+      <Rides data = {data}/>
 
     </div>
   )

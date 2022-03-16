@@ -2,21 +2,10 @@ import Image from 'next/image'
 import React from 'react'
 import RideCard from './RideCard'
 import styles from './Rides.module.css'
-import { RideData, UserData, rFilter } from './GlobalFunctions'
+import { rFilter } from './GlobalFunctions'
 let _ = require('lodash');
 
-function Rides() {
-  // Variables
-  let userData:any = UserData()
-  let res:any = RideData(userData)
-  //Sorted and Filtered Ride Data
-  let nearestRideData:any = res.nearestRideData
-  let upComingRideData:any = res.upComingRideData
-  let pastRideData:any = res.pastRideData
-  // Locations Filtered based on Ride Type
-  let nearestloc = res.nearestloc
-  let upComingloc = res.upComingloc
-  let pastloc = res.pastloc
+function Rides(props:any) {
 
   // State Variables
   let [loc, setLoc]:any = React.useState([{state: 'State',city:'City'}])
@@ -24,22 +13,6 @@ function Rides() {
   let [data, setData] = React.useState([])
   let [state, setRideState] = React.useState('State')
   let [city, setRideCity] = React.useState('City')
-
-  // Change Data based on Type of Ride
-  const rideType = () => {
-    if(rideFilter === 'nrstRide') {
-      setData(nearestRideData)
-      setLoc(nearestloc, 'state')
-    } else if(rideFilter === 'upCmngRide') {
-      setData(upComingRideData)
-      setLoc(upComingloc)
-    } else if(rideFilter === 'pstRide') {
-      setData(pastRideData)
-      setLoc(pastloc)
-    } else {
-      setData([])
-    }
-  }
 
   // Reset Values of City and State Selectors
   const resetStateCity = () => {
@@ -49,12 +22,13 @@ function Rides() {
     setRideCity('City')
   }
 
-
+  // State Selector Handler 
   const handleStateSelector = (e:any) => {
     setRideState(e.target.value)
     lFilter()
   }
 
+  // City Selector Handler 
   const handleCitySelector = (e:any) => {
     setRideCity(e.target.value)
     lFilter()
@@ -67,9 +41,23 @@ function Rides() {
   }
 
   React.useEffect(() => {
-    rideType()
+
+    // Setting Rides & List of Locations based on filter
+    if(rideFilter === 'nrstRide') {
+        setData(props.data.nearestRideData)
+        setLoc(props.data.nearestloc)
+      } else if(rideFilter === 'upCmngRide') {
+        setData(props.data.upComingRideData)
+        setLoc(props.data.upComingloc)
+      } else if(rideFilter === 'pstRide') {
+        setData(props.data.pastRideData)
+        setLoc(props.data.pastloc)
+      } else {
+        setData([])
+      }
     resetStateCity()
-  }, [rideType, userData])
+  }, [props.data.nearestRideData, props.data.upComingRideData, props.data.pastRideData, 
+    props.data.nearestloc, props.data.upComingloc, props.data.pastloc, rideFilter])
 
   return (
     <div className={styles.RidesContainer}>
@@ -77,22 +65,19 @@ function Rides() {
         <div className={styles.OutterFlex}>
             <div className={`${styles.OutterFlex} ${styles.Flex}`}>
                 <h4 
-                  onClick={() => {rFilter(setRideFilter, 'nrstRide', styles)
-                                  rideType()}} 
+                  onClick={() => rFilter(setRideFilter, 'nrstRide', styles)} 
                   className={`${styles.RideMenuOpt} ${styles.ActiveRF} nrstRide`}>
-                  Nearest rides ({ nearestRideData?.length })
+                  Nearest rides ({ props.data.nearestRideData?.length })
                 </h4>
                 <h4 
-                  onClick={() => {rFilter(setRideFilter, 'upCmngRide', styles)
-                                  rideType()}} 
+                  onClick={() => rFilter(setRideFilter, 'upCmngRide', styles)} 
                   className={`${styles.RideMenuOpt} upCmngRide`}>
-                  Upcoming rides ({ upComingRideData?.length })
+                  Upcoming rides ({ props.data.upComingRideData?.length })
                 </h4>
                 <h4 
-                  onClick={() => {rFilter(setRideFilter, 'pstRide', styles)
-                                  rideType()}} 
+                  onClick={() => rFilter(setRideFilter, 'pstRide', styles)} 
                   className={`${styles.RideMenuOpt} pstRide`}>
-                  Past rides ({ pastRideData?.length })
+                  Past rides ({ props.data.pastRideData?.length })
                 </h4>
             </div>
   
@@ -108,10 +93,10 @@ function Rides() {
                   <h4 id='FilterBtn' className={styles.Filter}>Filters</h4>                  
                 </div>
 
-                {/* Location Filter */}
+                {/* Location Filter/Selectors */}
                 <div id='Filters' className={`${styles.FilterDiv} ${styles.Hidden}`}>
 
-                  <select onChange={handleStateSelector} name="state" id="state">
+                  <select onChange={handleStateSelector} name="state" id="state" className={styles.LocSelector}>
                     <option value='State'>State</option>
                     {
                       // Unique Values of States
@@ -122,7 +107,7 @@ function Rides() {
                     }
                   </select>
 
-                  <select onChange={handleCitySelector} name="city" id="city">
+                  <select onChange={handleCitySelector} name="city" id="city" className={styles.LocSelector}>
                     <option value='City'>City</option>
                     {
                       state === 'State' 
@@ -153,21 +138,21 @@ function Rides() {
             {/* All States All Cities */}
             {
                (state==='State' && city === 'City') && data.map((ride:any, index:number) => (
-                  <RideCard ride={ride} key={index} station_code={userData.station_code}/>
+                  <RideCard ride={ride} key={index}/>
                ))
             }
 
             {/* Specific State Respective Cities */}
             {
                (state !== 'State' && city === 'City') && data.filter((ride:any) => ride.state === state).map((ride:any, index:number) => (
-                <RideCard ride={ride} key={index} station_code={userData.station_code}/>
+                <RideCard ride={ride} key={index}/>
                ))
             }
 
             {/* Specific City */}
             {
                (state === 'State' && city !== 'City') && data.filter((ride:any) => ride.city === city).map((ride:any, index:number) => (
-                <RideCard ride={ride} key={index} station_code={userData.station_code}/>
+                <RideCard ride={ride} key={index}/>
                ))
             }
 
@@ -175,7 +160,7 @@ function Rides() {
             {
                (state !=='State' && city !== 'City') && data.filter((ride:any) => (ride.state === state && ride.city === city))
                .map((ride:any, index:number) => (
-                <RideCard ride={ride} key={index} station_code={userData.station_code}/>
+                <RideCard ride={ride} key={index}/>
                ))
             }
   
