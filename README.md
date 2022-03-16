@@ -1,15 +1,26 @@
-# [Edvora]
+# [Edvora Live Site](https://edvora-b6p8r58yv-mr-hypocrite.vercel.app/)
 
-<img style="margin:auto; max-width:95%;" src="https://github.com/Mr-Hypocrite/Edvora/blob/main/public/images/thumbnail.PNG?raw=true" alt="thumbnail" />
+<a href="https://edvora-b6p8r58yv-mr-hypocrite.vercel.app/"><img style="margin:auto; max-width:95%;" src="https://github.com/Mr-Hypocrite/Edvora/blob/main/public/images/thumbnail.PNG?raw=true" alt="thumbnail" /></a>
 
 <h3 align="center">Based on design provided by Edvora.</h3>
 
+# 
+
 <br />
 
-## After Downloading the Repo Run the following Commands to run the application locally
+## Use Guidelines
+### Downloading the repo 
+### Run 'npm install' (to install all required node packages)
+### Run 'npm run dev' (to run it locally)
 
-### npm install
-### npm run dev
+# 
+
+## Ride Filter
+### Nearest Rides show available and upcoming rides.
+### Upcoming Rides show rides whose date & time is ahead of current date & time.
+### Past Rides show ride whose date & time are before the current date & time.
+
+# 
 
 ## Built Using
 
